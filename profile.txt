@@ -1,2 +1,0 @@
-Remove-Item alias:curl
-Set-Alias curl "C:\Windows\System32\curl.exe"
