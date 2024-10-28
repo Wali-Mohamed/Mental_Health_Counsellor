@@ -7,7 +7,7 @@ services:
     environment:
       POSTGRES_HOST: postgres
       POSTGRES_USER: postgres  # Replace with your PostgreSQL username
-      POSTGRES_PASSWORD: POSTGRES_PASSWORD  # Replace with your PostgreSQL password
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}  # Replace with your PostgreSQL password
       POSTGRES_DB: mental_health  # The name of your database
     volumes:
       - postgres_data:/var/lib/postgresql/data  # Persist PostgreSQL data
@@ -21,7 +21,9 @@ services:
     volumes:
       - .:/app  # Mount the current directory to `/app` in the container
     environment:
-      - PYTHONUNBUFFERED=1  # Ensure unbuffered logging in Docker Compose as well
+      PYTHONUNBUFFERED: 1  # Ensure unbuffered logging in Docker Compose as well
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      OPENAI_API_KEY: ${OPENAI_API_KEY}
     depends_on:
       - postgres  # Wait for PostgreSQL to be ready before starting Streamlit
 
@@ -33,7 +35,7 @@ services:
     ports:
       - "3000:3000"  # Expose Grafana on its default port 3000
     environment:
-      - GF_SECURITY_ADMIN_PASSWORD=GRAFANA_ADMIN_PASSWORD  # Set Grafana's admin password
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_ADMIN_PASSWORD}  # Set Grafana's admin password
     depends_on:
       - postgres  # Wait for PostgreSQL to be ready before starting Grafana
     volumes:

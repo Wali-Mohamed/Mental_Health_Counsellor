@@ -4,18 +4,17 @@ from psycopg2.extras import DictCursor
 from datetime import datetime, timezone
 from zoneinfo import ZoneInfo
 from dotenv import load_dotenv
+
 load_dotenv()
 
 RUN_TIMEZONE_CHECK = os.getenv('RUN_TIMEZONE_CHECK', '1') == '1'
-
 TZ_INFO = os.getenv("TZ", "Europe/London")
 tz = ZoneInfo(TZ_INFO)
 
 
 def get_db_connection():
     return psycopg2.connect(
-        #host=os.getenv("POSTGRES_HOST", "postgres"),
-        host=os.getenv("POSTGRES_HOST", "localhost"),
+        host=os.getenv("POSTGRES_HOST", "postgres"),
         database=os.getenv("POSTGRES_DB", "mental_health"),
         user=os.getenv("POSTGRES_USER", "postgres"),
         password=os.getenv("POSTGRES_PASSWORD"),
