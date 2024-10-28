@@ -1,6 +1,6 @@
 # Mental Health Assistant
 
-![Alt text](App/Mental_Health.jpg)
+![Alt text](/App/Mental_Health.jpg)
 
 ### Problem Statement
 
