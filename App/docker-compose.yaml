@@ -5,6 +5,7 @@ services:
     ports:
       - "5432:5432"  # Expose PostgreSQL on the default port 5432
     environment:
+      POSTGRES_HOST: postgres
       POSTGRES_USER: postgres  # Replace with your PostgreSQL username
       POSTGRES_PASSWORD: POSTGRES_PASSWORD  # Replace with your PostgreSQL password
       POSTGRES_DB: mental_health  # The name of your database
