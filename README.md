@@ -1,13 +1,13 @@
-Content
-Mental health includes our emotional, psychological, and social well-being. Mental health is integral to living a healthy, balanced life. It affects how we think, feel, and act. It also helps determine how we handle stress, relate to others, and make choices. Emotional and mental health is important because it’s a vital part of your life and impacts your thoughts, behaviors and emotions. Being healthy emotionally can promote productivity and effectiveness in activities like work, school or care-giving. It plays an important part in the health of your relationships, and allows you to adapt to changes in your life and cope with adversity. Mental health problems are common but help is available. People with mental health problems can get better and many recover completely.
+### Problem Statement
 
-This dataset consists of FAQs about Mental Health.
+Mental health is an essential aspect of overall well-being, impacting emotional, psychological, and social aspects of life. It affects how individuals think, feel, and behave, as well as their ability to handle stress, form relationships, and make decisions. Despite its importance, mental health issues are widespread, and navigating reliable information on mental health can be challenging.
 
-Acknowledgements
-https://www.thekimfoundation.org/faqs/
+To address this, our project aims to provide accessible, reliable answers to frequently asked questions (FAQs) about mental health. Using a large language model (LLM) trained on a dataset compiled from trusted sources, this project delivers insights into common mental health questions, helping users understand and manage their mental well-being effectively.
 
-https://www.mhanational.org/frequently-asked-questions
+This project leverages data from sources such as:
+- [The Kim Foundation](https://www.thekimfoundation.org/faqs/)
+- [Mental Health America](https://www.mhanational.org/frequently-asked-questions)
+- [Wellness in Mind](https://www.wellnessinmind.org/frequently-asked-questions/)
+- [Here to Help BC](https://www.heretohelp.bc.ca/questions-and-answers)
 
-https://www.wellnessinmind.org/frequently-asked-questions/
-
-https://www.heretohelp.bc.ca/questions-and-answers
+Our goal is to make mental health information more accessible and improve awareness, ultimately supporting better mental health outcomes.
