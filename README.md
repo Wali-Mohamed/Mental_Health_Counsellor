@@ -1,3 +1,7 @@
+# Mental Health Assistant
+
+![Alt text](App/Mental_Health.jpg)
+
 ### Problem Statement
 
 Mental health is an essential aspect of overall well-being, impacting emotional, psychological, and social aspects of life. It affects how individuals think, feel, and behave, as well as their ability to handle stress, form relationships, and make decisions. Despite its importance, mental health issues are widespread, and navigating reliable information on mental health can be challenging.
