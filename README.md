@@ -170,6 +170,10 @@ The code for the application is in the app folder:
 
 We also have some code in the project root directory:
 
+## Interface
+We use streamlit for serving the application as an API.
+
+
 ## Experiments
 For experiments, we use Jupyter notebooks. They are in the notebooks folder.
 
