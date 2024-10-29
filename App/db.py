@@ -32,12 +32,23 @@ def init_db():
 
             cur.execute("""
                 CREATE TABLE conversations (
-                    id TEXT PRIMARY KEY,
-                    question TEXT NOT NULL,
-                    answer TEXT NOT NULL,
-                    
-                    timestamp TIMESTAMP WITH TIME ZONE NOT NULL
-                )
+                        id TEXT PRIMARY KEY,
+                        question TEXT NOT NULL,
+                        answer TEXT NOT NULL,
+                        response_time FLOAT NOT NULL,             
+                        relevance VARCHAR(20) NOT NULL,            -- Stores relevance, e.g., 'RELEVANT', assuming a max length of 20 characters
+                        relevance_explanation TEXT NOT NULL,       -- Explanation of relevance as text
+                        prompt_tokens INTEGER NOT NULL,            -- Token count for prompt
+                        completion_tokens INTEGER NOT NULL,        -- Token count for completion
+                        total_tokens INTEGER NOT NULL,             -- Total tokens used
+                        eval_prompt_tokens INTEGER NOT NULL,       -- Token count for evaluation prompt
+                        eval_completion_tokens INTEGER NOT NULL,   -- Token count for evaluation completion
+                        eval_total_tokens INTEGER NOT NULL,        -- Total tokens used in evaluation
+                        prompt_openai_cost FLOAT NOT NULL,         -- Cost for prompt in floating-point
+                        eval_openai_cost FLOAT NOT NULL,            -- Cost for evaluation in floating-point
+                        
+                        timestamp TIMESTAMP WITH TIME ZONE NOT NULL
+                    )
             """)
             cur.execute("""
                 CREATE TABLE feedback (
@@ -53,7 +64,21 @@ def init_db():
         conn.close()
 
 
-def save_conversation(conversation_id, question, answer_data, timestamp=None):
+def save_conversation(conversation_id, 
+                    question, 
+                    answer_data, 
+                    response_time,
+                    relevance,
+                    relevance_explanation,
+                    prompt_tokens,
+                    completion_tokens,
+                    total_tokens,
+                    eval_prompt_tokens,
+                    eval_completion_tokens,
+                    eval_total_tokens,
+                    prompt_openai_cost,
+                    eval_openai_cost,
+                    timestamp=None):
     if timestamp is None:
         timestamp = datetime.now(tz)
 
@@ -63,13 +88,40 @@ def save_conversation(conversation_id, question, answer_data, timestamp=None):
             cur.execute(
                 """
                 INSERT INTO conversations 
-                (id, question, answer, timestamp)
-                VALUES (%s, %s, %s, %s)
+                (
+                    id, 
+                    question, 
+                    answer, 
+                    response_time, 
+                    relevance, 
+                    relevance_explanation, 
+                    prompt_tokens, 
+                    completion_tokens, 
+                    total_tokens, 
+                    eval_prompt_tokens, 
+                    eval_completion_tokens, 
+                    eval_total_tokens, 
+                    prompt_openai_cost, 
+                    eval_openai_cost, 
+                    timestamp
+                ) 
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
                 """,
                 (
                     conversation_id,
                     question,
                     answer_data,
+                    response_time,
+                    relevance,
+                    relevance_explanation,
+                    prompt_tokens,
+                    completion_tokens,
+                    total_tokens,
+                    eval_prompt_tokens,
+                    eval_completion_tokens,
+                    eval_total_tokens,
+                    prompt_openai_cost,
+                    eval_openai_cost,
                     timestamp
                 ),
             )

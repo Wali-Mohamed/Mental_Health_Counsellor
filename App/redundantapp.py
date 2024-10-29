@@ -2,7 +2,7 @@ import streamlit as st
 import base64
 import uuid
 import db
-from rag import get_answer  # Assuming 'rag' is your custom function for generating answers
+from rag import rag  # Assuming 'rag' is your custom function for generating answers
 
 # Function to encode the local image file as base64
 def get_base64_image(image_path):
@@ -169,47 +169,20 @@ def main():
         if question:
             conversation_id = str(uuid.uuid4())
             try:
+                answer = rag(question)  # Process the question through your rag function
+                # Display the answer with custom CSS
+                answer = rag(question)  # Process the question through your rag function
+                st.session_state['last_answer'] = answer  # Store the answer in session state
+                st.session_state['last_conversation_id'] = conversation_id            
+               
                 
-                # Get the answer as a dictionary
-                answer_data = get_answer(question)  # Process the question through your function
-                
-                # Store the answer data and conversation ID in session state
-                st.session_state['last_answer'] = answer_data['answer']
-                st.session_state['last_conversation_id'] = conversation_id
-
-                # Extract the values from the answer dictionary
-                response_time = answer_data.get('response_time', 0.0)  # Default to 0.0 if not present
-                relevance = answer_data.get('relevance', 'UNKNOWN')
-                relevance_explanation = answer_data.get('relevance_explanation', '')
-                prompt_tokens = answer_data.get('prompt_tokens', 0)
-                completion_tokens = answer_data.get('completion_tokens', 0)
-                total_tokens = answer_data.get('total_tokens', 0)
-                eval_prompt_tokens = answer_data.get('eval_prompt_tokens', 0)
-                eval_completion_tokens = answer_data.get('eval_completion_tokens', 0)
-                eval_total_tokens = answer_data.get('eval_total_tokens', 0)
-                prompt_openai_cost = answer_data.get('prompt_openai_cost', 0.0)
-                eval_openai_cost = answer_data.get('eval_openai_cost', 0.0)
-                
-                
-                print(relevance)
-                # Save the conversation to the database
                 db.save_conversation(
                     conversation_id=conversation_id,
                     question=question,
-                    answer_data=answer_data['answer'],
-                    response_time=response_time,
-                    relevance=relevance,
-                    relevance_explanation=relevance_explanation,
-                    prompt_tokens=prompt_tokens,
-                    completion_tokens=completion_tokens,
-                    total_tokens=total_tokens,
-                    eval_prompt_tokens=eval_prompt_tokens,
-                    eval_completion_tokens=eval_completion_tokens,
-                    eval_total_tokens=eval_total_tokens,
-                    prompt_openai_cost=prompt_openai_cost,
-                    eval_openai_cost=eval_openai_cost
+                    answer_data=answer,
                 )
-               
+                st.session_state['last_answer'] = answer  # Store the answer in session state
+                st.session_state['last_conversation_id'] = conversation_id
                 
                 
             except Exception as e:
@@ -227,7 +200,7 @@ def main():
         if st.button("Submit Feedback", key=f"submit_feedback_button"):
              
             conversation_id = st.session_state['last_conversation_id']
-            print_log("Ask feedback button pressed.")  # Confirm this is printed
+            print_log("Ask feedbaack button pressed.")  # Confirm this is printed
             feedback_value = 1 if feedback == "Yes" else -1
             
             try:
