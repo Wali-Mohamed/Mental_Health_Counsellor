@@ -6,14 +6,16 @@
 
 Mental health is an essential aspect of overall well-being, impacting emotional, psychological, and social aspects of life. It affects how individuals think, feel, and behave, as well as their ability to handle stress, form relationships, and make decisions. Despite its importance, mental health issues are widespread, and navigating reliable information on mental health can be challenging.
 
-To address this, our project aims to provide accessible, reliable answers to frequently asked questions (FAQs) about mental health. Using a large language model (LLM) trained on a dataset compiled from trusted sources, this project delivers insights into common mental health questions, helping users understand and manage their mental well-being effectively.
+To address this, our project aims to provide accessible, reliable answers to frequently asked questions (FAQs) about mental health. Using a large language model (LLM) trained on a dataset compiled from trusted sources, this project delivers insights into common mental health questions, helping users understand and manage their mental well-being effectively.  
+
+data source: [Mental Health FAQ for Chatbot](https://www.kaggle.com/datasets/narendrageek/mental-health-faq-for-chatbot)  
 
 This project leverages data from sources such as:
 - [The Kim Foundation](https://www.thekimfoundation.org/faqs/)
 - [Mental Health America](https://www.mhanational.org/frequently-asked-questions)
 - [Wellness in Mind](https://www.wellnessinmind.org/frequently-asked-questions/)
 - [Here to Help BC](https://www.heretohelp.bc.ca/questions-and-answers)
-
+  
 Our goal is to make mental health information more accessible and improve awareness, ultimately supporting better mental health outcomes.
 ## Dataset
 The dataset is structured as follows, with each entry containing a unique identifier, a mental health-related question, and its corresponding answer:
@@ -66,7 +68,7 @@ The project leverages several key technologies to build, deploy, and monitor the
 
 ```bash
 git clone https://github.com/Wali-Mohamed/Mental_Health_Counsellor
-cd app
+cd App
 ```
 
 
@@ -87,7 +89,7 @@ pip install -r requirements.txt
 Then to app directory and run db_prep.py for database preparation
 
 ```bash
-cd app
+cd App
 export POSTGRES_HOST=localhost
 python db_prep.py
 
@@ -104,6 +106,10 @@ You can view the schema using the \d command:
 
 ```bash
 \d conversations;
+```
+To shows in the database
+```bash
+\dt conversations;
 ```
 
 And select from this table:
@@ -125,7 +131,7 @@ To install dependencies, build images and run them
 
 Change to the app directory
 ```bash
-cd app
+cd App
 ```
 Build the images for app, postgres database and grafana.
 ```bash
