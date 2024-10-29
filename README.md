@@ -237,7 +237,7 @@ search using
 
 
   
-## RAG Flow Evaluation
+## RAG Flow Evaluation using minsearch
 
 We evaluated the quality of our RAG (Retrieval-Augmented Generation) flow using the LLM-as-a-Judge metric.
 
@@ -254,6 +254,14 @@ We also tested **gpt-4o**, yielding:
 - **190 (95%)** RELEVANT
 - **5 (2.5%)** PARTLY_RELEVANT
 - **5 (2.5%)** NON_RELEVANT
+
+## RAG Flow Evaluation using lancedb vector search
+For **gpt-4o-mini**, in a sample of 200 records, the relevance distribution was as follows:
+
+- **195 (97.5%)** RELEVANT
+- **3 (1.5%)** PARTLY_RELEVANT
+- **2 (1%)** NON_RELEVANT
+
 
 ### Conclusion
 
