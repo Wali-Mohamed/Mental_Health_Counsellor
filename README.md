@@ -271,6 +271,8 @@ The differences between the two models were minimal. Based on this, we opted to 
 We use Grafana for monitoring the application.
 
 It's accessible at localhost:3000:
+- username: admin
+- password: admin
 
 ## Monitoring Dashboard
 
