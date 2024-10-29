@@ -187,20 +187,101 @@ We have the following notebooks:
 
 The basic approach - using minsearch without any boosting - gave the following metrics:
 
-Hit rate: 94%
-MRR: 82%
+* Hit rate: 73%
+* MRR: 55%
+  
 The improved version (with tuned boosting):
 
-Hit rate: 94%
-MRR: 90%
+* Hit rate: 95%
+* MRR: 73%
+
 The best boosting parameters:
 
-boost = {
-    'exercise_name': 2.11,
-    'type_of_activity': 1.46,
-    'type_of_equipment': 0.65,
-    'body_part': 2.65,
-    'type': 1.31,
-    'muscle_groups_activated': 2.54,
-    'instructions': 0.74
-}
+```bash
+ boost = {
+   
+    'Questions': 0.20303988721391708,
+    'Answers': 1.5766410134276012
+    
+    
+    }
+```
+
+
+I also experimented with **lancedb semantic vector** search and got the following metrics:
+
+* Hit rate: 95%
+* MRR: 76%
+
+##### Semantic vector search with Elasticsearch using **question_vector** and got the following metrics:
+**Question Vector**
+* Hit rate: 71%
+* MRR: 52%
+  
+##### Semantic vector search with Elasticsearch using **answer_vector** and got the following metrics:
+**Answer Vector**
+* Hit rate: 89%
+* MRR: 76%
+
+##### Semantic vector search with Elasticsearch using **question_answer_vector** and got the following metrics:
+search using
+**Question Answer Vector**
+
+* Hit rate: 87%
+* MRR: 72%
+
+
+
+  
+## RAG Flow Evaluation
+
+We evaluated the quality of our RAG (Retrieval-Augmented Generation) flow using the LLM-as-a-Judge metric.
+
+### Results
+
+For **gpt-4o-mini**, in a sample of 200 records, the relevance distribution was as follows:
+
+- **182 (91%)** RELEVANT
+- **12 (6%)** PARTLY_RELEVANT
+- **6 (3%)** NON_RELEVANT
+
+We also tested **gpt-4o**, yielding:
+
+- **190 (95%)** RELEVANT
+- **5 (2.5%)** PARTLY_RELEVANT
+- **5 (2.5%)** NON_RELEVANT
+
+### Conclusion
+
+The differences between the two models were minimal. Based on this, we opted to use **gpt-4o-mini** for the RAG flow.
+
+## Monitoring
+We use Grafana for monitoring the application.
+
+It's accessible at localhost:3000:
+
+## Monitoring Dashboard
+
+The monitoring dashboard includes several panels to provide insights into the performance, user interaction, and cost associated with the mental health assistant:
+
+- **Last 5 Conversations (Table):**  
+  Displays a table with the five most recent conversations, detailing each question, answer, relevance, and timestamp. This panel is useful for monitoring recent user interactions.
+
+- **+1/-1 (Pie Chart):**  
+  A pie chart visualizing user feedback, with counts of positive (thumbs up) and negative (thumbs down) responses. This panel helps track user satisfaction levels.
+
+- **Relevancy (Gauge):**  
+  A gauge chart representing the relevance of responses in recent conversations. The chart uses color-coded thresholds to indicate different levels of response quality.
+
+- **OpenAI Cost (Time Series):**  
+  A time series line chart showing the cost associated with OpenAI usage over time. This panel is essential for monitoring and analyzing expenditures linked to the AI model's usage.
+
+- **Tokens (Time Series):**  
+  A time series chart tracking the number of tokens used over time. This helps to understand usage patterns and the volume of data processed in conversations.
+
+- **Response Time (Time Series):**  
+  A time series chart indicating conversation response times over time. This panel is valuable for identifying potential performance issues and ensuring the system's responsiveness.
+
+## Acknowledgements
+I thank the course trainer, Alexey Grigorev, for all his time and dedication and positive feedback as well as the course sponsors for making it possible to run this course for free.
+I also thank all my colleagues for all the discussion and support in the slack channel.
