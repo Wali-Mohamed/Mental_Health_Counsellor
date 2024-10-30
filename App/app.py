@@ -16,13 +16,14 @@ def load_css(base64_image):
         f"""
         <style>
         .stApp {{
-             position: relative;
+            position: relative;
             background-image: url("data:image/jpg;base64,{base64_image}");
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
             height: 100vh;  /* Full height */
             overflow:auto;
+            z-index: 0;  /* Place .stApp at the lowest */
 
         }}
         # /* Adding a darker overlay on top of the background */
@@ -33,9 +34,9 @@ def load_css(base64_image):
         #     left: 0;
         #     right: 0;
         #     bottom: 0;
-        #     background-color: rgba(0, 0, 0, 0.5);  /* Black overlay with 50% opacity */
+        #     background-color: rgba(0, 0, 0, 0.2);  /* Black overlay with 50% opacity */
         #     z-index: 1;  /* Place overlay above background image */
-        # }}
+        }}
         /* Container styling to position content above the overlay */
         .centered {{
             display: flex;
@@ -45,17 +46,25 @@ def load_css(base64_image):
             align-items: center;
             padding: 10px;
             justify-content: center;
-            color:white;
+            color:#fff;
            
         }}
         .input-container {{
-            background-color: rgba(255, 255, 255, 0.8);
+            background-color: rgba(255,255,255, 0.8);
             padding: 20px;
             border-radius: 10px;
             width: 80%;
             max-width: 800px;
             box-shadow: 0px 4px 8px rgba(0,0,0,0.1);
             margin:auto;
+            
+        }}
+        /* Styles for dark mode */
+        @media (prefers-color-scheme: dark) {{
+            .input-container {{
+                color: #ffffff; /* Pure white text for dark backgrounds */
+                background-color: rgba(0, 0, 0, 0.6); /* Darker background to match dark mode */
+            }}
         }}
         
         input, button {{
@@ -103,12 +112,20 @@ def load_css(base64_image):
             text_align:center;
     }}
     .answer {{
+                
+                
                 background-color: #f0f2f6;  /* Light grey background */
                 padding: 10px;
                 border-radius: 5px;
                 margin: 10px auto;
                 width:75%;
             }}
+     @media (prefers-color-scheme: dark) {{
+            .answer {{
+                color: #ffffff; /* Pure white text for dark backgrounds */
+                background-color: rgba(0, 0, 0, 0.6); /* Darker background to match dark mode */
+            }}
+        }}
     /* Centering the radio buttons */
     .stRadio > div {{
         display: flex;
