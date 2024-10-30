@@ -155,17 +155,21 @@ def main():
     
     buff, col, buff2 = st.columns([1,3,1])
 
-    question=col.text_input('**Enter your question here:**')
+    col.markdown("**Enter your question here:**")  # Displays the label in bold
+    question = col.text_input("")  # No visible label here
+
+    
     
     
     # Initialize or maintain the state of last_answer and last_conversation_id
     if 'last_answer' not in st.session_state:
         st.session_state['last_answer'] = None
         st.session_state['last_conversation_id'] = None
-
+    if 'feedback_submitted' not in st.session_state:
+        st.session_state['feedback_submitted'] = None
     if col.button("Ask"):
         print_log("ask button pressed.")
-        
+        st.session_state['feedback_submitted'] = False
         if question:
             conversation_id = str(uuid.uuid4())
             try:
@@ -220,30 +224,35 @@ def main():
     if st.session_state.get('last_answer'):
         st.markdown(f"<div class='answer'>{st.session_state['last_answer']}</div>", unsafe_allow_html=True)    
    
-    if 'last_conversation_id' in st.session_state:
+    
         st.markdown("<div class='centered-radio'>Was this answer helpful?</div>", unsafe_allow_html=True)
         feedback = st.radio("", ["Yes", "No"], key="feedback_radio",horizontal=True, label_visibility="collapsed")  
+        # Initialize the session state variable if it doesn't exist
+    # Only show feedback section if an answer has been provided
         
         if st.button("Submit Feedback", key=f"submit_feedback_button"):
-             
-            conversation_id = st.session_state['last_conversation_id']
-            print_log("Ask feedback button pressed.")  # Confirm this is printed
-            feedback_value = 1 if feedback == "Yes" else -1
+            if not st.session_state.feedback_submitted:  # Check if feedback has already been submitted
+                st.session_state.feedback_submitted = True  # Set the flag to true 
+                conversation_id = st.session_state['last_conversation_id']
+                print_log("Ask feedback button pressed.")  # Confirm this is printed
+                feedback_value = 1 if feedback == "Yes" else -1
             
-            try:
-                # Check the type of feedback_value and ensure it's an integer
-                if not isinstance(feedback_value, int):
-                    st.error("Invalid feedback value type.")
-                    print_log(f"Invalid type for feedback_value: {type(feedback_value)}")
-                else:
-                    # Confirm feedback value and conversation ID before saving
-                    print_log(f"Conversation ID: {conversation_id} and Feedback Value: {feedback_value}")
-                    st.success(f"Feedback received: {'Positive' if feedback_value == 1 else 'Negative'}")
-                    db.save_feedback(conversation_id=conversation_id, feedback=feedback_value)
-            except Exception as e:
-                st.error("There was an issue processing your question. Please try again later.")
-                print_log(f"Error generating answer or saving conversation: {e}")
+                try:
+                    # Check the type of feedback_value and ensure it's an integer
+                    if not isinstance(feedback_value, int):
+                        st.error("Invalid feedback value type.")
+                        print_log(f"Invalid type for feedback_value: {type(feedback_value)}")
+                    else:
+                        # Confirm feedback value and conversation ID before saving
+                        print_log(f"Conversation ID: {conversation_id} and Feedback Value: {feedback_value}")
+                        st.success(f"Feedback received: {'Positive' if feedback_value == 1 else 'Negative'}")
+                        db.save_feedback(conversation_id=conversation_id, feedback=feedback_value)
+                except Exception as e:
+                    st.error("There was an issue processing your question. Please try again later.")
+                    print_log(f"Error generating answer or saving conversation: {e}")
         
+            else:
+                st.warning("You have already submitted your feedback.")  # Inform the user
 
     st.markdown('</div>', unsafe_allow_html=True)
 
