@@ -179,7 +179,7 @@ docker-compose up
 
 ```
 The application should now be accessible at http://localhost:8501
-
+Grafana at http://localhost:3000
 
 
 ### Code
@@ -197,7 +197,7 @@ We also have some code in the project root directory:
 ## Interface
 We use streamlit for serving the application as an API.
 ### Cloud on Ec2
-[Access the Streamlit App](http://3.9.10.80:8501/)
+[Access the Streamlit Cloud App](http://3.9.10.80:8501/)
 
 
 ## Experiments
