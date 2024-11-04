@@ -83,6 +83,7 @@ Before running the application, ensure that all necessary dependencies are insta
 
 Install dependencies
 ```bash
+cd App
 pip install -r requirements.txt
 
 ```
