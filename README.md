@@ -77,8 +77,9 @@ Before running the application, ensure that all necessary dependencies are insta
 1. **Install python-dotenv**:
    ```bash
    pip install python-dotenv
-   ```
-
+   pip install pgcli
+ ```
+pgcli is not included in requirements as it is required if you are running databsase on docker-compose image and it also causes error on image.
  #### Running it locally with dockerizing  
 
 Install dependencies
@@ -97,7 +98,7 @@ python db_prep.py
 ```
 To check the content of the database, use pgcli (already installed with pipenv):
 ```bash
-pgcli -h localhost -U your_username -d mental_health -W
+pgcli -h localhost -U your_username -d mental_health
 
 ```
 You will asked for a password
