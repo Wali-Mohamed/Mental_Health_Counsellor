@@ -103,12 +103,12 @@ pgcli -h localhost -U your_username -d mental_health -W
 You will asked for a password
 Please type in your database password
 
-You can view the schema using the \d command:
+You can view the table schema using the \d command:
 
 ```bash
 \d conversations;
 ```
-To shows in the database
+To show tables in the database
 ```bash
 \dt conversations;
 ```
@@ -138,14 +138,14 @@ Build the images for app, postgres database and grafana.
 ```bash
 docker-compose up --build
 ```
-#### Initialize the Database:
-
 - Ensure Docker is running on your machine.
-- Start only the PostgreSQL container to set up the database:
+- the three services: app, postgres, and grafana are running.
 
 ```bash
-docker-compose up -d postgres
+docker-compose ps
 ```
+#### Initialize the Database:
+
 
 - Run the db_prep.py script to initialize tables and seed data:
 
@@ -154,11 +154,28 @@ docker-compose exec app python db_prep.py
 ```
 That will create the two tables: conversations and feedback
 
+To confirm the two tables have been created
+
+```bash
+docker-compose exec postgres psql -U postgres -d mental_health
+```
+List all tables
+```
+\dt
+```
+
 ##### Run the Application:
+
+Close down docker compose
+
+```bash
+docker-compose down
+```
+Start it again and run the app.
 
 - Start all services with Docker Compose:
 ```bash
-docker-compose up --build
+docker-compose up
 
 ```
 The application should now be accessible at http://localhost:8501
